@@ -1,5 +1,6 @@
 defmodule Ch3.NeruralnetMnist do
   import Nx.Defn
+  alias Ch3.Activation
   # comment in exla cpu mode
   # @defn_compiler {EXLA, max_float_type: {:f, 64}}
   def get_data() do
