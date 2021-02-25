@@ -1,7 +1,7 @@
 defmodule Ch3.NeruralnetMnist do
   import Nx.Defn
   # comment in exla cpu mode
-  @defn_compiler {EXLA, max_float_type: {:f, 64}}
+  # @defn_compiler {EXLA, max_float_type: {:f, 64}}
   def get_data() do
     x_test = Dataset.test_image() |> Nx.tensor() |> (& Nx.divide(&1, Nx.reduce_max(&1))).()
     t_test = Dataset.test_label() |> Nx.tensor()
