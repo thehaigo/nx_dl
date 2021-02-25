@@ -21,12 +21,11 @@ defmodule NxDl.MixProject do
   # Run "mix help deps" to learn about dependencies.
   def deps do
     [
-      {:nx, "~> 0.1.0-dev", github: "elixir-nx/nx", sparse: "nx"},
+      {:exla, "~> 0.1.0-dev", github: "elixir-nx/nx", sparse: "exla"},
+      {:nx, "~> 0.1.0-dev", github: "elixir-nx/nx", sparse: "nx", override: true},
       {:expyplot, "~> 1.1.2"},
       {:erlport, "~> 0.9.8" },
-      {:benchee, "~> 1.0", only: :dev},
-      {:flow, "~> 1.1.0"},
-      {:pelemay_fp, "~> 0.1.2"}      
+      {:benchee, "~> 1.0", only: :dev}
     ]
   end
 end
