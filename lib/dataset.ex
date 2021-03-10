@@ -25,7 +25,7 @@ defmodule Dataset do
     Mix.shell().cmd("gzip -d mnist/#{file}")
   end
 
-  def train_label(:mnist) do
+  def train_label() do
     {:ok, <<0, 0, 8, 1, 0, 0, 234, 96, label::binary>>} =
       File.read("mnist/train-labels-idx1-ubyte")
     label |> String.to_charlist()
@@ -41,6 +41,11 @@ defmodule Dataset do
     {:ok, <<0, 0, 8, 1, 0, 0, 39, 16, label::binary>>} = File.read("mnist/t10k-labels-idx1-ubyte")
 
     label |> String.to_charlist()
+  end
+
+  def to_one_hot(label) do
+    list = label |> Enum.max |> (&(0..&1)).() |> Enum.to_list
+    label |> Enum.map(fn t ->  Enum.map(list, fn l -> if t == l, do: 1, else: 0 end) end)
   end
 
   def test_image() do
