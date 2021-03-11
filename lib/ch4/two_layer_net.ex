@@ -1,11 +1,11 @@
 defmodule Ch4.TwoLayerNet do
   import Nx.Defn
   @defn_compiler {EXLA, max_float_type: {:f, 32}}
-  
+
   defn init_params(input_size \\ 784, hidden_size \\ 100, output_size \\ 10) do
     w1 = Nx.random_normal({input_size, hidden_size}, 0.0, 0.1)
     b1 = Nx.random_uniform({ hidden_size }, 0, 0, type: {:f, 64})
-    w2 = Nx.random_uniform({ hidden_size, output_size }, 0.0, 0.1)
+    w2 = Nx.random_normal({ hidden_size, output_size }, 0.0, 0.1)
     b2 = Nx.random_uniform({ output_size }, 0, 0, type: {:f, 64})
     { w1, b1, w2, b2 }
   end
