@@ -1,7 +1,7 @@
 defmodule Ch3.Activation do
   import Nx.Defn
   # comment in exla cpu mode
-  # @defn_compiler {EXLA, max_float_type: {:f, 64}}
+  @default_defn_compiler {EXLA, max_float_type: {:f, 32}}
   def step_function(tensor) do
     Nx.map(tensor ,fn t -> if t > 0, do: 1, else: 0 end)
   end

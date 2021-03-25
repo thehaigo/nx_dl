@@ -1,7 +1,7 @@
 defmodule Ch4.Loss do
   import Nx.Defn
   # comment in exla cpu mode
-  @defn_compiler {EXLA, max_float_type: {:f, 32}}
+  @default_defn_compiler {EXLA, max_float_type: {:f, 32}}
   defn mean_squared_error(y, t) do
     Nx.power(y-t, 2)
     |> Nx.sum()

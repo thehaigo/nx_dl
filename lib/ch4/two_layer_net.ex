@@ -1,6 +1,6 @@
 defmodule Ch4.TwoLayerNet do
   import Nx.Defn
-  @defn_compiler {EXLA, max_float_type: {:f, 32}}
+  @default_defn_compiler {EXLA, max_float_type: {:f, 32}}
 
   defn init_params(input_size \\ 784, hidden_size \\ 100, output_size \\ 10) do
     w1 = Nx.random_normal({input_size, hidden_size}, 0.0, 0.1)
@@ -37,7 +37,7 @@ defmodule Ch4.TwoLayerNet do
   end
 
   defn update({ w1, b1, w2, b2 } = params, x, t, lr, batch_size) do
-    {grad_w1, grad_b1, grad_w2, grad_b2} = grad(params, loss(params, x, t, batch_size))
+    {grad_w1, grad_b1, grad_w2, grad_b2} = grad(params, &loss(&1, x, t, batch_size))
 
     {
       w1 - (grad_w1 * lr),
@@ -61,6 +61,7 @@ defmodule Ch4.TwoLayerNet do
     x_test = Dataset.test_image |> Nx.tensor |> (& Nx.divide(&1, Nx.reduce_max(&1))).()
     t_test = Dataset.test_label |> Dataset.to_one_hot |> Nx.tensor
     IO.puts("data load")
+
     iteras_num = 1000
     batch_size = 100
     lr = 0.1
@@ -74,7 +75,7 @@ defmodule Ch4.TwoLayerNet do
       train_loss_list = [loss(acc.params, x_batch, t_batch, batch_size) |> Nx.to_scalar | acc.loss_list ]
 
       IO.inspect(train_loss_list |> Enum.reverse)
-      if (rem(i, batch_size) == 0) do
+      if (rem(batch_size, i) == 0) do
         IO.inspect(acc.train_acc)
         IO.inspect(acc.test_acc)
         %{
