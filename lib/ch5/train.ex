@@ -16,7 +16,7 @@ defmodule Train do
     IO.puts("data load")
     params = Net.init_params
     table = :ets.new(:grad, [:set, :public])
-    iteras_num = 100
+    iteras_num = 1000
     batch_size = 100
     lr = 0.1
     result = Enum.reduce(
@@ -27,8 +27,7 @@ defmodule Train do
       { x_batch, t_batch } = mini_batch(x_train, t_train, batch_size)
       {grad_w1, grad_b1, grad_w2, grad_b2} = Net.gradient(acc.params, x_batch, t_batch, table)
       {w1, b1, w2, b2} = acc.params
-      IO.inspect(grad_w2)
-      IO.inspect(w2)
+
       params = {
         Nx.subtract(w1,Nx.multiply(grad_w1,lr)),
         Nx.subtract(b1,Nx.multiply(grad_b1,lr)),
