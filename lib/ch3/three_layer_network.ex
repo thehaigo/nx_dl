@@ -16,10 +16,10 @@ defmodule ThreeLayerNetwork do
     x
     |> Nx.dot(w1)
     |> Nx.add(b1)
-    |> Activation.sigmoid()
+    |> Ch3.Activation.sigmoid()
     |> Nx.dot(w2)
     |> Nx.add(b2)
-    |> Activation.sigmoid()
+    |> Ch3.Activation.sigmoid()
     |> Nx.dot(w3)
     |> Nx.add(b3)
   end
